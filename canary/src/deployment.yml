@@ -1,0 +1,93 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: canary-nodejs-microservice
+  name: worker-v1
+  labels:
+    app: worker-v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: worker-v1
+  template:
+    metadata:
+      labels:
+        app: worker-v1
+    spec:
+      containers:
+        - name: worker-v1
+          image: trongtoanse/worker:v1
+          ports:
+            - containerPort: 80
+          imagePullPolicy: Always
+          env:
+            - name: PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: worker
+                  key: PORT
+            - name: DBHOST
+              valueFrom:
+                configMapKeyRef:
+                  name: worker
+                  key: DBHOST
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: canary-nodejs-microservice
+  name: worker-v2
+  labels:
+    app: worker-v2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: worker-v2
+  template:
+    metadata:
+      labels:
+        app: worker-v2
+    spec:
+      containers:
+        - name: worker-v2
+          image: trongtoanse/worker:v2
+          ports:
+            - containerPort: 80
+          imagePullPolicy: Always
+          env:
+            - name: PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: worker
+                  key: PORT
+            - name: DBHOST
+              valueFrom:
+                configMapKeyRef:
+                  name: worker
+                  key: DBHOST
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ namespace: canary-nodejs-microservice
+ name: front-end
+ labels:
+   app: front-end
+spec:
+ replicas: 1
+ selector:
+   matchLabels:
+     app: front-end
+ template:
+   metadata:
+     labels:
+       app: front-end
+   spec:
+     containers:
+       - name: front-end
+         image: trongtoanse/front-end:k8s
+         ports:
+           - containerPort: 80
+         imagePullPolicy: Always

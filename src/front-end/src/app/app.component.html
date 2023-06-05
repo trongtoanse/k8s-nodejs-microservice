@@ -1,0 +1,129 @@
+<div class="toolbar bg-c-blue" role="banner">
+  <img width="40" height="40" alt="Logo" src="assets/home.svg" />
+  <span>Welcome</span>
+</div>
+
+<div class="content" role="main">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card user-card">
+            <div class="card-header bg-c-blue">
+              <h5>Settings Dynamic Values</h5>
+            </div>
+            <div class="card-block m-t-25">
+              <div class="row">
+                <div class="col-md-4">Login with User-ID :</div>
+                <div class="col-md-8"><input type="text" [(ngModel)]="loginWithUserId"></div>
+              </div>
+              <div class="row m-t-10">
+                <div class="col-md-4"></div>
+                <div class="col-md-8">
+                  <button mat-raised-button color="primary" (click)="updateUser()">
+                    <fa-icon [icon]="faEdit"></fa-icon>
+                    Update
+                  </button>
+                  <button mat-raised-button color="primary" (click)="resetUser()" class="m-l-10">
+                    <fa-icon [icon]="faTrashCan"></fa-icon>
+                    Reset
+                  </button>
+                </div>
+              </div>
+            </div>
+            <hr>
+            <div class="card-block">
+              <div class="row">
+                <div class="col-md-4">Delay Value :</div>
+                <div class="col-md-8"><input type="text" placeholder="Milliseconds" [(ngModel)]="customDelay"></div>
+              </div>
+              <div class="row m-t-10">
+                <div class="col-md-4"></div>
+                <div class="col-md-8">
+                  <button mat-raised-button color="primary" (click)="updateDelay()">
+                    <fa-icon [icon]="faEdit"></fa-icon>
+                    Update
+                  </button>
+                  <button mat-raised-button color="primary" (click)="resetDelay()" class="m-l-10">
+                    <fa-icon [icon]="faTrashCan"></fa-icon>
+                    Reset
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card user-card">
+            <div class="card-header bg-c-blue environments">
+              <h5>Environments</h5>
+            </div>
+            <div class="card-block m-t-25">
+              <div class="row">
+                <div class="col-md-4">
+                  Mode :
+                </div>
+                <div class="col-md-8"><span>{{mode}}</span></div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  Worker :
+                </div>
+                <div class="col-md-8"><span>{{worker}}</span></div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  Delay :
+                </div>
+                <div class="col-md-8"><span>{{delay}} milliseconds</span></div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  Login with User-ID :
+                </div>
+                <div class="col-md-8"><span>{{userId}}</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-8">
+      <div class="row">
+        <ng-container *ngFor="let worker of workers">
+          <div class="col-md-2">
+            <div class="card user-card">
+              <div class="card-header text-center" [ngClass]="
+                {'bg-c-pink' : (worker.version | uppercase) == 'V1',
+                'bg-c-green' : (worker.version | uppercase) == 'V2',
+                'bg-c-yellow' : (worker.version | uppercase) == 'V3'}">
+                <h5>Worker</h5>
+              </div>
+              <div class="card-block m-t-25">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="row">
+                      <div class="d-flex align-items-center justify-content-center">
+                        <h5 class="fw-bold">{{worker.version | uppercase}}</h5>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-8">
+                    <div class="row">
+                      <div class="d-flex align-items-center justify-content-center">
+                        <h6 class="fw-bold">{{worker.ip}}</h6>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>
+<router-outlet></router-outlet>

@@ -1,0 +1,111 @@
+{
+	"info": {
+		"_postman_id": "710c01ee-d947-42ee-a7c0-37ededf24c61",
+		"name": "NodeJS Microservices",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26124283"
+	},
+	"item": [
+		{
+			"name": "k8s",
+			"item": [
+				{
+					"name": "List data via WORKER",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{K8S_WORKER}}/api/data",
+							"host": [
+								"{{K8S_WORKER}}"
+							],
+							"path": [
+								"api",
+								"data"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Canary k8s",
+			"item": [
+				{
+					"name": "List data via WORKER",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{CANARY_K8S_WORKER}}/api/data",
+							"host": [
+								"{{CANARY_K8S_WORKER}}"
+							],
+							"path": [
+								"api",
+								"data"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "List data via WORKER",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{WORKER}}/api/data",
+					"host": [
+						"{{WORKER}}"
+					],
+					"path": [
+						"api",
+						"data"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "WORKER",
+			"value": "http://localhost:5000",
+			"type": "string"
+		},
+		{
+			"key": "K8S_WORKER",
+			"value": "http://worker.k8s.homelab.local",
+			"type": "string"
+		},
+		{
+			"key": "CANARY_K8S_WORKER",
+			"value": "http://worker.k8s.homelab.local",
+			"type": "string"
+		}
+	]
+}

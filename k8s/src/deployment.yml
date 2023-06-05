@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: nodejs-microservice
+  name: worker
+  labels:
+    app: worker
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: worker
+  template:
+    metadata:
+      labels:
+        app: worker
+    spec:
+      containers:
+        - name: worker
+          image: trongtoanse/worker:v1
+          ports:
+            - containerPort: 80
+          imagePullPolicy: Always
+          env:
+            - name: PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: worker
+                  key: PORT
+            - name: DBHOST
+              valueFrom:
+                configMapKeyRef:
+                  name: worker
+                  key: DBHOST
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ namespace: nodejs-microservice
+ name: front-end
+ labels:
+   app: front-end
+spec:
+ replicas: 1
+ selector:
+   matchLabels:
+     app: front-end
+ template:
+   metadata:
+     labels:
+       app: front-end
+   spec:
+     containers:
+       - name: front-end
+         image: trongtoanse/front-end:k8s
+         ports:
+           - containerPort: 80
+         imagePullPolicy: Always

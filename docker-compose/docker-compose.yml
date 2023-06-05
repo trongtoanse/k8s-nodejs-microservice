@@ -1,0 +1,30 @@
+version: '3'
+services:
+
+  db:
+    image: mongo
+    restart: always
+
+  db-init:
+    image: db-init:v1
+    depends_on:
+      - db
+
+  worker:
+    image: worker:v1
+    environment:
+      - PORT=80
+      - DBHOST=mongodb://db:27017
+    ports:
+      - "5000:80"
+    depends_on:
+      - db
+    restart: always
+
+  front-end:
+    image: front-end:docker
+    ports:
+      - "4200:80"
+    depends_on:
+      - worker
+    restart: always
